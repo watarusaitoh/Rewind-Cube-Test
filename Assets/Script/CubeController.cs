@@ -12,13 +12,14 @@ public class CubeController : MonoBehaviour
     bool isRotate = false;               //回転中に立つフラグ、回転中は入力を受け付けない
     Vector3 m_targetPosition = Vector3.zero;//キューブの微量な誤差を修正するための変数
     private GameObject L_Gate;           //LeftGateを入れる
-    private float RiseDegree = 4f;
-    public bool RButton;          //RightButtonを入れる
-    public bool LButton;          //LeftButtonを入れる
-    public bool FButton;          //ForwardButtonを入れる
-    public bool BButton;          //BuckButtonを入れる
-    private bool StepUpDownMove;
-    private float sumRotate;
+    private float RiseDegree = 8f;       //ゲートが上がる高さ
+    private bool RButton;          //RightButtonを入れる
+    private bool LButton;          //LeftButtonを入れる
+    private bool FButton;          //ForwardButtonを入れる
+    private bool BButton;          //BuckButtonを入れる
+
+    private bool StepUpDownMove;  //一段上がるか下がるかの判断をする変数
+    private float sumRotate;　　　//転がる角度の合計
 
     void Start()
     {
@@ -32,126 +33,163 @@ public class CubeController : MonoBehaviour
     {
         if (isRotate)
             return;
-
-        if (Input.GetKeyDown(KeyCode.RightArrow)||this.RButton)//RightArrowまたはRButtonを押した時
+        RaycastHit Result;
+        //右矢印またはRButtonを押した時
+        if (Input.GetKeyDown(KeyCode.RightArrow)||this.RButton)
         {
-            RaycastHit Result;
+            //一段上る場合
             Physics.Raycast(this.transform.position, Vector3.right, out Result, this.cubeSizeHalf*2f);
             if (Result.collider != null)
             {
-                StepUpDownMove = true;
-                m_targetPosition = this.transform.position + new Vector3(2f, 2f, 0f);
-                rotatePoint = transform.position + new Vector3(cubeSizeHalf, cubeSizeHalf, 0f);
-                rotateAxis = new Vector3(0, 0, -1);
+                //2段以上ある場合
+                if (Physics.Raycast(this.transform.position + new Vector3(2f, 0f, 0f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    //登れない
+                    return;
+                }
+                //両側には挟まれた場合
+                if(Physics.Raycast(this.transform.position + new Vector3(0f, 0f, 0f), new Vector3(-2f, 0f, 0f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    return;
+                }
+                //上を基準にし180度回転する
+                Rotate180(cubeSizeHalf, cubeSizeHalf, cubeSizeHalf);
                 return;
             }
+            //一段降りる場合
             Physics.Raycast(this.transform.position + new Vector3(2f, 0f, 0f), new Vector3(0f, -2f, 0f), out Result, this.cubeSizeHalf * 2f);
             if (Result.collider == null)
             {
-                StepUpDownMove = true;
-                m_targetPosition = this.transform.position + new Vector3(2f, -2f, 0f);
-                rotatePoint = transform.position + new Vector3(cubeSizeHalf, -cubeSizeHalf, 0f);
-                rotateAxis = new Vector3(0, 0, -1);
+                if (Physics.Raycast(this.transform.position + new Vector3(2f, -2f, 0f), new Vector3(-2f, 0f, 0f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    //下を基準にし180度回転する
+                    Rotate180(cubeSizeHalf, -cubeSizeHalf, cubeSizeHalf);
+                    return;
+                }
+                //下に何もない場合動けない
                 return;
             }
-            m_targetPosition = this.transform.position + Vector3.right * 2f;   //回転時の微量の誤差を修正
-            rotatePoint = transform.position + new Vector3(cubeSizeHalf, -cubeSizeHalf, 0f);
-            rotateAxis = new Vector3(0, 0, -1);
-
-
+            //下を基準にし90度回転する
+            Rotate90(cubeSizeHalf,-cubeSizeHalf,cubeSizeHalf);
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)||this.LButton)//LeftArrowまたはLButtonを押した時
+        //左矢印またはLButtonを押した時
+        if (Input.GetKeyDown(KeyCode.LeftArrow)||this.LButton)
         {
-            RaycastHit Result;
+            //一段上る場合
+            
             Physics.Raycast(this.transform.position, Vector3.left, out Result, this.cubeSizeHalf*2f);
             if (Result.collider != null)
             {
-                StepUpDownMove = true;
-                m_targetPosition = this.transform.position + new Vector3(-2f, 2f,0f);
-                rotatePoint = transform.position + new Vector3(-cubeSizeHalf, cubeSizeHalf, 0f);
-                rotateAxis = new Vector3(0, 0, 1);
+                //2段以上ある場合
+                if (Physics.Raycast(this.transform.position + new Vector3(-2f, 0f, 0f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    //登れない
+                    return;
+                }
+                //両側には挟まれた場合
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, 0f), new Vector3(2f, 0f, 0f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    return;
+                }
+                //上を基準にし180度回転する
+                Rotate180(-cubeSizeHalf, cubeSizeHalf, cubeSizeHalf);
                 return;
             }
-            Physics.Raycast(this.transform.position + new Vector3(-2f, 0f, 0f), new Vector3(0f, -2f,02f), out Result, this.cubeSizeHalf * 2f);
+            //一段降りる場合
+            Physics.Raycast(this.transform.position + new Vector3(-2f, 0f, 0f), new Vector3(0f, -2f,0f), out Result, this.cubeSizeHalf * 2f);
             if (Result.collider == null)
             {
-                StepUpDownMove = true;
-                m_targetPosition = this.transform.position + new Vector3(-2f, -2f, 0f);
-                rotatePoint = transform.position + new Vector3(-cubeSizeHalf, -cubeSizeHalf, 0f);
-                rotateAxis = new Vector3(0, 0, 1);
+                if (Physics.Raycast(this.transform.position + new Vector3(-2f, -2f, 0f), new Vector3(2f, 0f, 0f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    //下を基準にし180度回転する
+                    Rotate180(-cubeSizeHalf, -cubeSizeHalf, cubeSizeHalf);
+                    return;
+                }
+                //下に何もない場合動けない
                 return;
             }
-            m_targetPosition = this.transform.position + Vector3.left * 2f;
-            rotatePoint = transform.position + new Vector3(-cubeSizeHalf, -cubeSizeHalf, 0f);
-            rotateAxis = new Vector3(0, 0, 1);
+            //下を基準にし90度回転する
+            Rotate90(-cubeSizeHalf,-cubeSizeHalf,cubeSizeHalf);
 
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow)||this.FButton)//UpArrowまたはFButtonを押した時
+        //上矢印またはFButtonを押した時
+        if (Input.GetKeyDown(KeyCode.UpArrow)||this.FButton)
         {
-            //Cubeが一段上る場合
-            RaycastHit Result;
+            //一段上る場合
+          
             Physics.Raycast(this.transform.position, Vector3.forward, out Result, this.cubeSizeHalf*2f);
             if(Result.collider != null)
             {
-                if (Physics.Raycast(this.transform.position + new Vector3(0f, 2f, 2f), new Vector3(0f, 1f, 0f), out Result ,this.cubeSizeHalf))
+                //2段以上ある場合
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, 2f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
                 {
-                    StepUpDownMove = false;
-                    Debug.Log("yobidasareta");
-                    Debug.DrawRay(this.transform.position + new Vector3(0f, 2f, 2f), new Vector3(0f, 1f, 0f), Color.red,100f);
-                    m_targetPosition = this.transform.position + new Vector3(0f, 2f, 0f);
+                    //登れない
+                    return;
                 }
-                else
+                //両側には挟まれた場合
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, -2f), out Result, this.cubeSizeHalf * 2f))
                 {
-                    StepUpDownMove = true;
-                    m_targetPosition = this.transform.position + new Vector3(0f, 2f, 2f);
+                    return;
                 }
-               
-                rotatePoint = transform.position + new Vector3(0f, cubeSizeHalf, cubeSizeHalf);
-                rotateAxis = new Vector3(1, 0, 0);
+                //上を基準にし180度回転する
+                Rotate180(cubeSizeHalf, cubeSizeHalf, cubeSizeHalf);
                 return;
             }
-            //Cubeが一段降りる場合
+            //一段降りる場合
             Physics.Raycast(this.transform.position+new Vector3(0f,0f,2f), new Vector3(0f,-2f,0f),out Result, this.cubeSizeHalf*2f);
             if(Result.collider == null)
             {
-                StepUpDownMove = true;
-                m_targetPosition = this.transform.position + new Vector3(0f, -2f, 2f);
-                rotatePoint = transform.position + new Vector3(0f, -cubeSizeHalf, cubeSizeHalf);
-                rotateAxis = new Vector3(1, 0, 0);
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, -2f, 2f), new Vector3(0f, 0f, -2f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    //下を基準にし180度回転する
+                    Rotate180(cubeSizeHalf, -cubeSizeHalf, cubeSizeHalf);
+                    return;
+                }
+                //下に何もない場合動けない
                 return;
             }
-            
-            m_targetPosition = this.transform.position + Vector3.forward * 2f;
-            rotatePoint = transform.position + new Vector3(0f, -cubeSizeHalf, cubeSizeHalf);
-            rotateAxis = new Vector3(1, 0, 0);
+            //下を基準にし90度回転する
+            Rotate90(cubeSizeHalf,-cubeSizeHalf,cubeSizeHalf);
 
 
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow)||this.BButton)//DownArrowまたはBButtonを押した時
+        //下矢印またはBButtonを押した時
+        if (Input.GetKeyDown(KeyCode.DownArrow)||this.BButton)
         {
-            RaycastHit Result;
+            //一段上る場合 
             Physics.Raycast(this.transform.position, Vector3.back, out Result, this.cubeSizeHalf*2f);
             if (Result.collider != null)
             {
-                StepUpDownMove = true;
-                m_targetPosition = this.transform.position + new Vector3(0f, 2f, -2f);
-                rotatePoint = transform.position + new Vector3(0f, cubeSizeHalf, -cubeSizeHalf);
-                rotateAxis = new Vector3(-1, 0, 0);
-
+                //2段以上ある場合
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, -2f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    //登れない
+                    return;
+                }
+                //両側には挟まれた場合
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 2f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    return;
+                }
+                //上を基準にし180度回転する
+                Rotate180(cubeSizeHalf, cubeSizeHalf, -cubeSizeHalf);
                 return;
             }
+            //一段降りる場合
             Physics.Raycast(this.transform.position + new Vector3(0f, 0f, -2f), new Vector3(0f, -2f, 0f), out Result, this.cubeSizeHalf * 2f);
             if (Result.collider == null)
             {
-                StepUpDownMove = true;
-                m_targetPosition = this.transform.position + new Vector3(0f, -2f, -2f);
-                rotatePoint = transform.position + new Vector3(0f, -cubeSizeHalf, -cubeSizeHalf);
-                rotateAxis = new Vector3(-1, 0, 0);
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, -2f, -2f), new Vector3(0f, 0f, 2f), out Result, this.cubeSizeHalf * 2f))
+                {
+                    //下を基準にし180度回転する
+                    Rotate180(cubeSizeHalf, -cubeSizeHalf, -cubeSizeHalf);
+                    return;
+                }
+                //下に何もない場合動けない
                 return;
             }
-            m_targetPosition = this.transform.position + Vector3.back * 2f;
-            rotatePoint = transform.position + new Vector3(0f, -cubeSizeHalf, -cubeSizeHalf);
-            rotateAxis = new Vector3(-1, 0, 0);
+            //下を基準にし90度回転する
+            Rotate90(cubeSizeHalf,-cubeSizeHalf,-cubeSizeHalf);
 
 
         }
@@ -199,7 +237,68 @@ public class CubeController : MonoBehaviour
         this.StepUpDownMove = false;
         yield break;
     }
-//スイッチを踏んだ時ゲートが上がる
+    //90度回転する場合の処理
+    void Rotate90(float PointNumX,float PointNumY,float PointNumZ)
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow)||this.RButton == true)
+        {
+            m_targetPosition = this.transform.position + new Vector3 (cubeSizeHalf * 2f, 0f, 0f);
+            rotatePoint = transform.position + new Vector3(PointNumX, PointNumY, 0f);
+            rotateAxis = new Vector3(0, 0, -1);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)||this.LButton == true)
+        {
+            m_targetPosition = this.transform.position +new Vector3(-cubeSizeHalf* 2f, 0f, 0f);
+            rotatePoint = transform.position + new Vector3(PointNumX, PointNumY, 0f);
+            rotateAxis = new Vector3(0, 0, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow)||this.FButton == true)
+        {
+            m_targetPosition = this.transform.position + new Vector3(0f, 0f, cubeSizeHalf * 2f);
+            rotatePoint = transform.position + new Vector3(0f, PointNumY, PointNumZ);
+            rotateAxis = new Vector3(1, 0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow)||this.BButton == true)
+        {
+            m_targetPosition = this.transform.position + new Vector3(0f, 0f, -cubeSizeHalf * 2f);
+            rotatePoint = transform.position + new Vector3(0f, PointNumY, PointNumZ);
+            rotateAxis = new Vector3(-1, 0, 0);
+        }
+
+    }
+    //180度回転する場合の処理
+    void Rotate180(float PointNumX,float PointNumY,float PointNumZ)
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow)||this.RButton == true)
+        {
+            StepUpDownMove = true;
+            m_targetPosition = this.transform.position + new Vector3(PointNumX * 2f, PointNumY * 2f, 0f);
+            rotatePoint = transform.position + new Vector3(PointNumX, PointNumY, 0f);
+            rotateAxis = new Vector3(0, 0, -1);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)||this.LButton == true)
+        {
+            StepUpDownMove = true;
+            m_targetPosition = this.transform.position + new Vector3(PointNumX*2f, PointNumY * 2f, 0f);
+            rotatePoint = transform.position + new Vector3(PointNumX, PointNumY, 0f);
+            rotateAxis = new Vector3(0, 0, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow)||this.FButton == true)
+        {
+            StepUpDownMove = true;
+            m_targetPosition = this.transform.position + new Vector3(0f, PointNumY * 2f, PointNumZ*2f);
+            rotatePoint = transform.position + new Vector3(0f, PointNumY, PointNumZ);
+            rotateAxis = new Vector3(1, 0, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow)||this.BButton == true)
+        {
+            StepUpDownMove = true;
+            m_targetPosition = this.transform.position + new Vector3(0f, PointNumY * 2f,PointNumZ*2f);
+            rotatePoint = transform.position + new Vector3(0f, PointNumY, PointNumZ);
+            rotateAxis = new Vector3(-1, 0, 0);
+        }
+    }
+    //スイッチを踏んだ時ゲートが上がる
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("LeftGateSwich"))
@@ -207,7 +306,7 @@ public class CubeController : MonoBehaviour
             L_Gate.transform.position = new Vector3(this.L_Gate.transform.position.x, this.L_Gate.transform.position.y + this.RiseDegree, this.L_Gate.transform.position.z);
         }
     }
-//スイッチをから離れたときゲートが下がる。
+    //スイッチをから離れたときゲートが下がる。
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("LeftGateSwich"))
@@ -215,9 +314,10 @@ public class CubeController : MonoBehaviour
             L_Gate.transform.position = new Vector3(this.L_Gate.transform.position.x, this.L_Gate.transform.position.y - this.RiseDegree, this.L_Gate.transform.position.z);
         }
     }
-
+    //UIのボタンを押した時Cubeが進む
     public void GetRButtonDown()
     {
+        Debug.Log("aaa");
         this.RButton = true;
     }
     public void GetRButtonUp()

@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Stage2.unity
+    path: Assets/Scenes/Stage2 Stairs.unity
     guid: 62aad0607ccfa1c48be57166ad856389
   - enabled: 1
-    path: Assets/Scenes/Stage3.unity
+    path: Assets/Scenes/Stage3 Bridge.unity
     guid: 856e1ad2a3b73704e9ec8d05aba1e759
   m_configObjects: {}

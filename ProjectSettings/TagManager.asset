@@ -8,6 +8,7 @@ TagManager:
   - Cube2
   - RightGateSwich
   - LeftGateSwich
+  - Stage1Goal
   layers:
   - Default
   - TransparentFX
