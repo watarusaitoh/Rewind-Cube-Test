@@ -20,6 +20,7 @@ public class CubeController : MonoBehaviour
 
     private bool StepUpDownMove;  //一段上がるか下がるかの判断をする変数
     private float sumRotate;　　　//転がる角度の合計
+    public bool RotateEnd;        //Cubeの回転終わりを判断する。　StageControllerに渡す変数
 
     void Start()
     {
@@ -235,6 +236,7 @@ public class CubeController : MonoBehaviour
         rotateAxis = Vector3.zero;
         this.transform.position = m_targetPosition;
         this.StepUpDownMove = false;
+        RotateEnd = true;
         yield break;
     }
     //90度回転する場合の処理

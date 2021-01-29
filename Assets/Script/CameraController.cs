@@ -32,20 +32,20 @@ public class CameraController : MonoBehaviour
     void MoveCamera()
     {
         //Aが押されたとき左回転Dが押されたとき右回転
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             RotateSpeed = -1f;
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.A))
 
         {  
             RotateSpeed = 1f;
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.D))
         {
             RotateSpeed = 0f;
         }
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.A))
         {
             RotateSpeed = 0f;
         }

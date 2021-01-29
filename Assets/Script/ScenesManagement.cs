@@ -12,31 +12,41 @@ public class ScenesManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GoalPoint = GameObject.Find("GoalPoint");
-        StageChange = GoalPoint.GetComponent<GoalController>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)||this.ResetButton)
+        if (SceneManager.GetActiveScene().name == "Stage1 Goal")
         {
-            SceneManager.LoadScene("Stage1 Goal");
-            this.ResetButton = false;
+            if (Input.GetKeyDown(KeyCode.R) || this.ResetButton)
+            {
+                SceneManager.LoadScene("Stage1 Goal");
+                this.ResetButton = false;
+            }
         }
-
-        bool StageChanger = StageChange.Stage2;
-        if (StageChanger)
+        else if(SceneManager.GetActiveScene().name == "Stage2 Stairs")
         {
-            SceneManager.LoadScene("Stage2 Stairs");
+            if (Input.GetKeyDown(KeyCode.R) || this.ResetButton)
+            {
+                SceneManager.LoadScene("Stage2 Stairs");
+                this.ResetButton = false;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.V))
+        else if (SceneManager.GetActiveScene().name == "Stage3 Bridge")
         {
-            SceneManager.LoadScene("Stage3 Bridge");
+            if (Input.GetKeyDown(KeyCode.R) || this.ResetButton)
+            {
+                SceneManager.LoadScene("Stage3 Bridge");
+                this.ResetButton = false;
+            }
         }
     }
+
     public void GetResetButton()
     {
         this.ResetButton = true;
     }
+
 }
