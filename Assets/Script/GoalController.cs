@@ -7,45 +7,63 @@ using UnityEngine.SceneManagement;  //シーンを切り替えるために追加
 public class GoalController : MonoBehaviour
 {
     private GameObject StageClearText;//StageClearテキストを入れる
-    public bool Stage2 = false;
-    public bool Stage3 = false;
+    GameObject FadeInFadeOut;         //FadeInFadeOutのオブジェクトを入れる
+    FadeScript script;　　　　　　　　//FadeScriptを入れる
+    private float step_time = 0.0f;　 //次のステージへ移行する時間の初期化
+    public bool isGoal;   //ゴールのSetactiveを判断する変数
+
     // Start is called before the first frame update
     void Start()
     {
         this.StageClearText = GameObject.Find("StageClearText");
+        FadeInFadeOut = GameObject.Find("FadeInFadeOut");
+        script = FadeInFadeOut.GetComponent<FadeScript>();
+        isGoal = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        step_time += Time.deltaTime;
+        if (isGoal == true)
+        {
+            Nextstage();
+        }
     }
-    IEnumerator NextStage()
+    //ステージの遷移
+    void Nextstage()
     {
-        //チュートリアル３ステージのテキスト
+        bool FadeIn = script.isFadeIn;
+        bool FadeOut = script.isFadeOut;
+        //ステージ１からステージ２
         if (SceneManager.GetActiveScene().name == "Stage1 Goal")
         {
-            Debug.Log("呼び出された");
             this.StageClearText.GetComponent<Text>().text = "GOOD!";
-            yield return new WaitForSeconds(1f);
-            SceneManager.LoadScene("Stage2 Stairs");
+            if (step_time >= 10.0f)
+            {
+                SceneManager.LoadScene("Stage2 Stairs");
+            }
         }
         else if (SceneManager.GetActiveScene().name == "Stage2 Stairs")
         {
             this.StageClearText.GetComponent<Text>().text = "GOOD!!";
-            yield return new WaitForSeconds(5);
-            SceneManager.LoadScene("Stage3 Bridge");
+            if (step_time >= 10.0f)
+            {
+                SceneManager.LoadScene("Stage3 Bridge");
+            }
         }
         else if (SceneManager.GetActiveScene().name == "Stage3 Bridge")
         {
-            this.StageClearText.GetComponent<Text>().text = "GREAT!!!";
+            this.StageClearText.GetComponent<Text>().text = "GOOD!!!";
+            if (step_time >= 10.0f)
+            {
+            }
         }
-        
     }
+    
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(NextStage());
-        Destroy(this.gameObject);
-       
+        this.GetComponent<Renderer>().enabled = false;
+        isGoal = true;
     }
 }

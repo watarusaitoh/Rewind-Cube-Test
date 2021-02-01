@@ -47,17 +47,20 @@ public class StageController : MonoBehaviour
             return;
         Cube1True = false;
         Cube2True = false;
+
+        rotatePoint = transform.position;
         //CubeControllerから渡された変数
         bool RotateEnd = script.RotateEnd;
         if (RotateEnd)
         {
+            //RaycastがColliderを検知する
             distance_right = this.RS_R.transform.position.z - this.RE_R.transform.position.z;
             RaycastHit hit;
             Physics.Raycast(this.RS_R.transform.position, new Vector3(0f, 0f, -distance_right), out hit, distance_right);
             if (hit.collider != null && Input.GetKeyDown(KeyCode.RightArrow))
             {
+                //CubeControllerをOffにする
                 CubeOnOff();
-                StartCoroutine(Intarval());
                 rotateAxis = new Vector3(0f, 0f, 1f);
             }
             distance_Left = this.RS_L.transform.position.z - this.RE_L.transform.position.z;
@@ -65,7 +68,6 @@ public class StageController : MonoBehaviour
             if (hit.collider != null&&Input.GetKeyDown(KeyCode.LeftArrow ))
             {
                 CubeOnOff();
-                StartCoroutine(Intarval());
                 rotateAxis = new Vector3(0f, 0f, -1f);
             }
             distance_forward = this.RS_R.transform.position.x - this.RS_L.transform.position.x;
@@ -73,7 +75,6 @@ public class StageController : MonoBehaviour
             if (hit.collider != null && Input.GetKeyDown(KeyCode.UpArrow))
             {
                 CubeOnOff();
-                StartCoroutine(Intarval());
                 rotateAxis = new Vector3(-1f, 0f, 0f);
             }
             distance_back = this.RE_R.transform.position.x - this.RE_L.transform.position.x;
@@ -81,7 +82,6 @@ public class StageController : MonoBehaviour
             if (hit.collider != null && Input.GetKeyDown(KeyCode.DownArrow))
             {
                 CubeOnOff();
-                StartCoroutine(Intarval());
                 rotateAxis = new Vector3(1f, 0f, 0f);
             }
 
@@ -120,7 +120,7 @@ public class StageController : MonoBehaviour
         //回転中のフラグを倒す
         
         isRotate = false;
-        rotatePoint = Vector3.zero;
+        //rotatePoint = Vector3.zero;  //rotatePointは自分中心で動くため不要
         rotateAxis = Vector3.zero;
         if (Cube1True)
         {
@@ -132,11 +132,7 @@ public class StageController : MonoBehaviour
         }
         yield break;
     }
-    //ステージが回転の際、Cubeを動かなくする
-    IEnumerator Intarval()
-    {
-        yield return new WaitForSeconds(0.5f);
-    }
+   
     //CubeControllerのスクリプトをオンにする
     void CubeOnOff()
     {

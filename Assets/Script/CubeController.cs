@@ -202,6 +202,7 @@ public class CubeController : MonoBehaviour
     }
     IEnumerator MoveCube()
     {
+        RotateEnd = false;
         //回転中のフラグを立てる
         isRotate = true;
         if (StepUpDownMove == true)
@@ -319,7 +320,6 @@ public class CubeController : MonoBehaviour
     //UIのボタンを押した時Cubeが進む
     public void GetRButtonDown()
     {
-        Debug.Log("aaa");
         this.RButton = true;
     }
     public void GetRButtonUp()

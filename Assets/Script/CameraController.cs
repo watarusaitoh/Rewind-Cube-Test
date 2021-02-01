@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            if (touch.position.x >= Screen.width / 2)
+            if (touch.position.x >= Screen.width / 2&&touch.position.y>= Screen.height/2)
             {
                 if (touch.phase == TouchPhase.Began)
                 {
@@ -63,7 +63,7 @@ public class CameraController : MonoBehaviour
                     RotateSpeed = 0f;
                 }
             }
-            else
+            else if(touch.position.x <=Screen.width/2)
             {
                 if (touch.phase == TouchPhase.Began)
                 {
