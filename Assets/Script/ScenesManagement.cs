@@ -42,6 +42,22 @@ public class ScenesManagement : MonoBehaviour
                 this.ResetButton = false;
             }
         }
+        else if(SceneManager.GetActiveScene().name == "Stage4 Rotate")
+        {
+            if (Input.GetKeyDown(KeyCode.R) || this.ResetButton)
+            {
+                SceneManager.LoadScene("Stage4 Rotate");
+                this.ResetButton = false;
+            }
+        }
+        else if(SceneManager.GetActiveScene().name == "Stage5 Swich")
+        {
+            if (Input.GetKeyDown(KeyCode.R) || this.ResetButton)
+            {
+                SceneManager.LoadScene("Stage5 Swich");
+                this.ResetButton = false;
+            }
+        }
     }
 
     public void GetResetButton()

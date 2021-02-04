@@ -9,8 +9,8 @@ public class GoalController : MonoBehaviour
     private GameObject StageClearText;//StageClearテキストを入れる
     GameObject FadeInFadeOut;         //FadeInFadeOutのオブジェクトを入れる
     FadeScript script;　　　　　　　　//FadeScriptを入れる
-    private float step_time = 0.0f;　 //次のステージへ移行する時間の初期化
     public bool isGoal;   //ゴールのSetactiveを判断する変数
+    public string NextStageName;
 
     // Start is called before the first frame update
     void Start()
@@ -24,45 +24,22 @@ public class GoalController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        step_time += Time.deltaTime;
-        if (isGoal == true)
-        {
-            Nextstage();
-        }
+      
     }
     //ステージの遷移
-    void Nextstage()
+    IEnumerator Nextstage()
     {
-        bool FadeIn = script.isFadeIn;
-        bool FadeOut = script.isFadeOut;
-        //ステージ１からステージ２
-        if (SceneManager.GetActiveScene().name == "Stage1 Goal")
-        {
-            this.StageClearText.GetComponent<Text>().text = "GOOD!";
-            if (step_time >= 10.0f)
-            {
-                SceneManager.LoadScene("Stage2 Stairs");
-            }
-        }
-        else if (SceneManager.GetActiveScene().name == "Stage2 Stairs")
-        {
-            this.StageClearText.GetComponent<Text>().text = "GOOD!!";
-            if (step_time >= 10.0f)
-            {
-                SceneManager.LoadScene("Stage3 Bridge");
-            }
-        }
-        else if (SceneManager.GetActiveScene().name == "Stage3 Bridge")
-        {
-            this.StageClearText.GetComponent<Text>().text = "GOOD!!!";
-            if (step_time >= 10.0f)
-            {
-            }
-        }
+        this.StageClearText.GetComponent<Text>().text = "GOOD";
+        script.isFadeOut = true;
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(NextStageName);
+        
+        
     }
     
     private void OnTriggerEnter(Collider other)
     {
+        StartCoroutine(Nextstage());
         this.GetComponent<Renderer>().enabled = false;
         isGoal = true;
     }

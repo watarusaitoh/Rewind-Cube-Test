@@ -18,7 +18,9 @@ public class FadeScript : MonoBehaviour
 		red = fadeImage.color.r;
 		green = fadeImage.color.g;
 		blue = fadeImage.color.b;
-		alfa = fadeImage.color.a;
+		alfa = 1; 
+		fadeImage.color = new Color(0, 0, 0, 1);
+		isFadeIn = true;
 	}
 
 	void Update()
@@ -39,7 +41,7 @@ public class FadeScript : MonoBehaviour
 		alfa -= fadeSpeed;                //a)不透明度を徐々に下げる
 		SetAlpha();                      //b)変更した不透明度パネルに反映する
 		if (alfa <= 0)
-		{                    //c)完全に透明になったら処理を抜ける
+		{                               //c)完全に透明になったら処理を抜ける
 			isFadeIn = false;
 			fadeImage.enabled = false;    //d)パネルの表示をオフにする
 		}
@@ -51,7 +53,7 @@ public class FadeScript : MonoBehaviour
 		alfa += fadeSpeed;         // b)不透明度を徐々にあげる
 		SetAlpha();               // c)変更した透明度をパネルに反映する
 		if (alfa >= 1)
-		{             // d)完全に不透明になったら処理を抜ける
+		{                         // d)完全に不透明になったら処理を抜ける
 			isFadeOut = false;
 		}
 	}

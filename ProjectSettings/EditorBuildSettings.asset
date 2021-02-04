@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage3 Bridge.unity
     guid: 856e1ad2a3b73704e9ec8d05aba1e759
+  - enabled: 1
+    path: Assets/Scenes/Stage4 Rotate.unity
+    guid: a0df80177dc0f994f83697791d116e87
+  - enabled: 1
+    path: Assets/Scenes/Stage5 Swich.unity
+    guid: 8487ec0945ad0d84fa386150e6f01707
   m_configObjects: {}

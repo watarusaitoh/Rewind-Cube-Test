@@ -5,21 +5,20 @@ using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
-    
+
     private GameObject CP;
-    private float RotateSpeed ;
-    private Vector3 beforePoint;
-    private Vector3 nowPoint;
-    private float horizontalAngle;
+    private float RotateSpeed;
     private GameObject Button;
-    private GameObject RButton;
-    
+    private float Speed = 0.02f;
+    //private Vector3 touchStartPos;
+    //private Vector3 touchEndPos;
+
+
     // Start is called before the first frame update
     void Start()
     {
         CP = GameObject.Find("CameraPoint");
         Button = GameObject.Find("Button");
-        RButton = GameObject.Find("RightButton");
     }
 
     // Update is called once per frame
@@ -38,7 +37,7 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A))
 
-        {  
+        {
             RotateSpeed = 1f;
         }
         if (Input.GetKeyUp(KeyCode.D))
@@ -49,34 +48,60 @@ public class CameraController : MonoBehaviour
         {
             RotateSpeed = 0f;
         }
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.position.x >= Screen.width / 2&&touch.position.y>= Screen.height/2)
-            {
-                if (touch.phase == TouchPhase.Began)
-                {
-                    RotateSpeed = 1f;
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    RotateSpeed = 0f;
-                }
-            }
-            else if(touch.position.x <=Screen.width/2)
-            {
-                if (touch.phase == TouchPhase.Began)
-                {
-                    RotateSpeed = -1f;
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    RotateSpeed = 0f;
-                }
-            }
-        }
         this.transform.RotateAround(this.CP.transform.position, Vector3.up, RotateSpeed);
         this.Button.transform.rotation *= Quaternion.AngleAxis(RotateSpeed, Vector3.forward);
     }
 
+
+   /* void Flick()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            touchStartPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            touchEndPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+            GetDirection();
+        }
+    }
+    void GetDirection()
+    {
+        float directionX = touchEndPos.x - touchStartPos.x;
+        float directionY = touchEndPos.y - touchStartPos.y;
+        string Direction;
+
+        if (Mathf.Abs(directionY) < Mathf.Abs(directionX))
+        {
+            if (30 < directionX)
+            {
+                //右向きにフリック
+                Direction = "right";
+            }
+            else if (-30 > directionX)
+            {
+                //左向きにフリック
+                Direction = "left";
+            }
+        }
+        else if (Mathf.Abs(directionX) < Mathf.Abs(directionY))
+        {
+            if (30 < directionY)
+            {
+                //上向きにフリック
+                Direction = "up";
+            }
+            else if (-30 > directionY)
+            {
+                //下向きにフリック
+                Direction = "down";
+            }
+        }
+        else
+        {
+            //タッチを検出
+            Direction = "touch";
+        }
+    }
+        */
 }
