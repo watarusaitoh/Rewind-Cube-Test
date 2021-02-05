@@ -70,15 +70,11 @@ public class StageController : MonoBehaviour
         if (RotateEndCube1||RotateEndCube2)
         {
             //RaycastがColliderを検知する
-            Debug.Log("RotateEnd");
+           
             distance_right = this.RS_R.transform.position.z - this.RE_R.transform.position.z;
             Debug.DrawRay(this.RS_R.transform.position, new Vector3(0f, 0f, -distance_right), Color.green);
             RaycastHit hit;
             Physics.Raycast(this.RS_R.transform.position, new Vector3(0f, 0f, -distance_right), out hit, distance_right,layermask);
-            if(hit.collider != null)
-            {
-                Debug.Log("Raycast関数内");
-            }
             if (hit.collider != null&&Input.GetKeyDown(KeyCode.RightArrow)||hit.collider != null&&RButton)
             {
                 //CubeControllerを無効にするにする
@@ -89,7 +85,6 @@ public class StageController : MonoBehaviour
             Physics.Raycast(this.RS_L.transform.position, new Vector3(0f, 0f, -distance_Left), out hit, distance_Left,layermask);
             if (hit.collider != null&&Input.GetKeyDown(KeyCode.LeftArrow) || hit.collider != null && LButton)
             {
-                Debug.Log("Raycast関数内");
                 CubeOnOff();
                 rotateAxis = new Vector3(0f, 0f, -1f);
             }
@@ -97,7 +92,6 @@ public class StageController : MonoBehaviour
             Physics.Raycast(this.RS_R.transform.position, new Vector3(-distance_forward, 0f, 0f), out hit, distance_forward,layermask);
             if (hit.collider != null&&Input.GetKeyDown(KeyCode.UpArrow) || hit.collider != null && FButton)
             {
-                Debug.Log("Raycast関数内");
                 CubeOnOff();
                 rotateAxis = new Vector3(-1f, 0f, 0f);
             }
@@ -105,7 +99,6 @@ public class StageController : MonoBehaviour
             Physics.Raycast(this.RE_R.transform.position, new Vector3(-distance_back, 0f, 0f), out hit, distance_back,layermask);
             if (hit.collider != null&&Input.GetKeyDown(KeyCode.DownArrow) || hit.collider != null && BButton)
             {
-                Debug.Log("Raycast関数内");
                 CubeOnOff();
                 rotateAxis = new Vector3(1f, 0f, 0f);
             }
