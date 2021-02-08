@@ -79,7 +79,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414834105197226286}
-  m_Text: "\u307C\u304F\u306FCube\uFF11\n\u4E38\u3044\u3082\u306E\u3092\u96C6\u3081\u308B\u306E\u304C\u597D\u304D\u306A\u3093\u3060\u30FB\u30FB"
+  m_Text: "\u30B9\u30A4\u30C3\u30C1\u3092\u62BC\u3059\uFF1A\u3044\u308D\u3093\u306A\u30AE\u30DF\u30C3\u30AF\u304C\u4F5C\u52D5\u3059\u308B"
   m_OffsetZ: 56
   m_CharacterSize: 2
   m_LineSpacing: 1
@@ -92,4 +92,4 @@ TextMesh:
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278780159
+    rgba: 4278190080

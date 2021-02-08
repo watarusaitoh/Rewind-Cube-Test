@@ -29,6 +29,7 @@ public class StageController : MonoBehaviour
     private bool LButton;          //LeftButtonを入れる
     private bool FButton;          //ForwardButtonを入れる
     private bool BButton;          //BuckButtonを入れる
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,7 +73,6 @@ public class StageController : MonoBehaviour
             //RaycastがColliderを検知する
            
             distance_right = this.RS_R.transform.position.z - this.RE_R.transform.position.z;
-            Debug.DrawRay(this.RS_R.transform.position, new Vector3(0f, 0f, -distance_right), Color.green);
             RaycastHit hit;
             Physics.Raycast(this.RS_R.transform.position, new Vector3(0f, 0f, -distance_right), out hit, distance_right,layermask);
             if (hit.collider != null&&Input.GetKeyDown(KeyCode.RightArrow)||hit.collider != null&&RButton)
@@ -102,15 +102,35 @@ public class StageController : MonoBehaviour
                 CubeOnOff();
                 rotateAxis = new Vector3(1f, 0f, 0f);
             }
-
+            //CubeをチェンジしたときにStageを回転させる
+           /* if (Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.x <= this.Cube1.transform.position.x + 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.x <= this.Cube2.transform.position.x + 1f)
+            {
+                CubeOnOff();
+                rotateAxis = new Vector3(0f, 0f, 1f);
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && this.RS_L.transform.position.x >= this.Cube1.transform.position.x - 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_L.transform.position.x >= this.Cube2.transform.position.x - 1f)
+            {
+                CubeOnOff();
+                rotateAxis = new Vector3(0f, 0f, -1f);
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.z <= this.Cube1.transform.position.z + 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.z <= this.Cube2.transform.position.z + 1f)
+            {
+                CubeOnOff();
+                rotateAxis = new Vector3(1f, 0f, 0f);
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && this.RE_R.transform.position.z >= this.Cube1.transform.position.z - 1f || Input.GetKeyDown(KeyCode.Space) && this.RE_R.transform.position.z <= this.Cube2.transform.position.z + 1f)
+            {
+                CubeOnOff();
+                rotateAxis = new Vector3(-1f, 0f, 1f);
+            }*/
             if (rotateAxis == Vector3.zero)
                 return;
         }
-            StartCoroutine(MoveCube());
+        StartCoroutine(MoveStage());
        
        
     }
-    IEnumerator MoveCube()
+    IEnumerator MoveStage()
     {
         //回転中のフラグを立てる
         isRotate = true;
@@ -122,7 +142,7 @@ public class StageController : MonoBehaviour
         //transform.DORotate(new Vector3(0f,90f),1.0f);
         while (sumAngle <= this.sumRotate)
         {
-            cubeAngle = 0.5f;  //ここを変えると回転速度が変わる
+            cubeAngle = 0.6f;  //ここを変えると回転速度が変わる
             sumAngle += cubeAngle;
 
 
@@ -168,6 +188,7 @@ public class StageController : MonoBehaviour
             Cube2True = true;
         }
     }
+    //Uiのボタンを押した時に矢印の方向に進む
     public void GetRButtonDown()
     {
         this.RButton = true;

@@ -7,12 +7,9 @@ public class CubeController : MonoBehaviour
     Vector3 rotatePoint = Vector3.zero;  //回転の中心
     Vector3 rotateAxis = Vector3.zero;   //回転軸
     float cubeAngle = 0f;                //回転角度
-
     float cubeSizeHalf;                  //キューブの大きさの半分
     bool isRotate = false;               //回転中に立つフラグ、回転中は入力を受け付けない
     Vector3 m_targetPosition = Vector3.zero;//キューブの微量な誤差を修正するための変数
-    private GameObject L_Gate;           //LeftGateを入れる
-    private float RiseDegree = 8f;       //ゲートが上がる高さ
     private bool RButton;          //RightButtonを入れる
     private bool LButton;          //LeftButtonを入れる
     private bool FButton;          //ForwardButtonを入れる
@@ -24,7 +21,6 @@ public class CubeController : MonoBehaviour
     void Start()
     {
         cubeSizeHalf = transform.localScale.x / 2f;
-        L_Gate = GameObject.Find("LeftGate");//L_Gateを取得する
         
     }
 
@@ -298,22 +294,6 @@ public class CubeController : MonoBehaviour
             m_targetPosition = this.transform.position + new Vector3(0f, PointNumY * 2f,PointNumZ*2f);
             rotatePoint = transform.position + new Vector3(0f, PointNumY, PointNumZ);
             rotateAxis = new Vector3(-1, 0, 0);
-        }
-    }
-    //スイッチを踏んだ時ゲートが上がる
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("LeftGateSwich"))
-        {
-            L_Gate.transform.position = new Vector3(this.L_Gate.transform.position.x, this.L_Gate.transform.position.y + this.RiseDegree, this.L_Gate.transform.position.z);
-        }
-    }
-    //スイッチをから離れたときゲートが下がる。
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("LeftGateSwich"))
-        {
-            L_Gate.transform.position = new Vector3(this.L_Gate.transform.position.x, this.L_Gate.transform.position.y - this.RiseDegree, this.L_Gate.transform.position.z);
         }
     }
     //UIのボタンを押した時Cubeが進む

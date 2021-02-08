@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove : MonoBehaviour
+public class BigStageCameraMove : MonoBehaviour
 {
     private float RotateSpeed_X;
     private float RotateSpeed_Y;
@@ -14,6 +14,7 @@ public class CameraMove : MonoBehaviour
     private float X_Speed;
     private float Y_Speed;
     private GameObject MainCamera;
+    private float CameraPositionRange = 80f;
 
 
     // Start is called before the first frame update
@@ -26,7 +27,6 @@ public class CameraMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //カメラを指定したオブジェクトを軸に回転
         MoveCamera();
         MoveSwipe();
     }
@@ -43,6 +43,7 @@ public class CameraMove : MonoBehaviour
         {
             RotateSpeed_X = 1f;
         }
+        //離されたとき止まる
         if (Input.GetKeyUp(KeyCode.D))
         {
             RotateSpeed_X = 0f;
@@ -52,15 +53,15 @@ public class CameraMove : MonoBehaviour
             RotateSpeed_X = 0f;
         }
         //Wが押されたとき上回転Sが押されたとき下回転
-        if (Input.GetKey(KeyCode.W)&&this.MainCamera.transform.position.y<20f)
+        if (Input.GetKey(KeyCode.W) && this.MainCamera.transform.position.y < CameraPositionRange)
         {
             RotateSpeed_Y += 1f;
         }
-        if (Input.GetKey(KeyCode.S)&&this.MainCamera.transform.position.y>-20f)
+        if (Input.GetKey(KeyCode.S) && this.MainCamera.transform.position.y > -CameraPositionRange)
         {
             RotateSpeed_Y -= 1f;
         }
-        
+
         /*if (Input.GetKeyUp(KeyCode.W))
         {
             RotateSpeed_Y = 0f;
@@ -70,7 +71,7 @@ public class CameraMove : MonoBehaviour
             RotateSpeed_Y = 0f;
         }*/
         this.transform.eulerAngles = new Vector3(RotateSpeed_Y, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
-       // this.transform.Rotate(this.RotateSpeed_Y, 0, 0, Space.Self);
+        // this.transform.Rotate(this.RotateSpeed_Y, 0, 0, Space.Self);
         this.transform.RotateAround(this.transform.position, Vector3.up, RotateSpeed_X);
         this.Button.transform.rotation *= Quaternion.AngleAxis(RotateSpeed_X, Vector3.forward);
     }
@@ -94,7 +95,7 @@ public class CameraMove : MonoBehaviour
             //スワイプの長さを速度に変換
             this.X_Speed = SwipeLength_X / 250.0f;
             this.Y_Speed += SwipeLength_Y / 250.0f;
-           
+
         }
         //角度制御ができれば追加できる
         // this.transform.eulerAngles = new Vector3(Y_Speed, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
