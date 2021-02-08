@@ -103,26 +103,26 @@ public class StageController : MonoBehaviour
                 rotateAxis = new Vector3(1f, 0f, 0f);
             }
             //CubeをチェンジしたときにStageを回転させる
-           /* if (Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.x <= this.Cube1.transform.position.x + 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.x <= this.Cube2.transform.position.x + 1f)
+            if (Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.x <= this.Cube1.transform.position.x + 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.x <= this.Cube2.transform.position.x + 1f)
             {
                 CubeOnOff();
                 rotateAxis = new Vector3(0f, 0f, 1f);
             }
-            if (Input.GetKeyDown(KeyCode.Space) && this.RS_L.transform.position.x >= this.Cube1.transform.position.x - 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_L.transform.position.x >= this.Cube2.transform.position.x - 1f)
+            else if (Input.GetKeyDown(KeyCode.Space) && this.RS_L.transform.position.x >= this.Cube1.transform.position.x - 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_L.transform.position.x >= this.Cube2.transform.position.x - 1f)
             {
                 CubeOnOff();
                 rotateAxis = new Vector3(0f, 0f, -1f);
             }
-            if (Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.z <= this.Cube1.transform.position.z + 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.z <= this.Cube2.transform.position.z + 1f)
+            else if (Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.z <= this.Cube1.transform.position.z + 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.z <= this.Cube2.transform.position.z + 1f)
             {
                 CubeOnOff();
                 rotateAxis = new Vector3(1f, 0f, 0f);
             }
-            if (Input.GetKeyDown(KeyCode.Space) && this.RE_R.transform.position.z >= this.Cube1.transform.position.z - 1f || Input.GetKeyDown(KeyCode.Space) && this.RE_R.transform.position.z <= this.Cube2.transform.position.z + 1f)
+            else if (Input.GetKeyDown(KeyCode.Space) && this.RE_R.transform.position.z >= this.Cube1.transform.position.z - 1f || Input.GetKeyDown(KeyCode.Space) && this.RE_R.transform.position.z <= this.Cube2.transform.position.z + 1f)
             {
                 CubeOnOff();
                 rotateAxis = new Vector3(-1f, 0f, 1f);
-            }*/
+            }
             if (rotateAxis == Vector3.zero)
                 return;
         }
