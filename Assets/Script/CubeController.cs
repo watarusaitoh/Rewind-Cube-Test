@@ -17,11 +17,11 @@ public class CubeController : MonoBehaviour
     private bool StepUpDownMove;  //一段上がるか下がるかの判断をする変数
     private float sumRotate;　　　//転がる角度の合計
     public bool RotateEnd;        //Cubeの回転終わりを判断する。　StageControllerに渡す変数
+    public Vector3 nomal ;　　　　//法線を代入する変数
 
     void Start()
     {
         cubeSizeHalf = transform.localScale.x / 2f;
-        
     }
 
     // Update is called once per frame
@@ -29,6 +29,8 @@ public class CubeController : MonoBehaviour
     {
         if (isRotate)
             return;
+        //上面にある場合のCubeの法線
+        nomal = new Vector3(0, 1, 0);
         RaycastHit Result;
         //右矢印またはRButtonを押した時
         if (Input.GetKeyDown(KeyCode.RightArrow)||this.RButton)
@@ -329,4 +331,29 @@ public class CubeController : MonoBehaviour
     {
         this.BButton = false;
     }
+    //法線を判断するオブジェクトに当たった場合
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("JudgeRight"))
+        {
+            nomal = new Vector3(1, 0, 0);
+        }
+        if (other.gameObject.CompareTag("JudgeLeft"))
+        {
+            nomal = new Vector3(-1, 0, 0);
+        }
+        if (other.gameObject.CompareTag("JudgeForward"))
+        {
+            nomal = new Vector3(0, 0, 1);
+        }
+        if (other.gameObject.CompareTag("JudgeBack"))
+        {
+            nomal = new Vector3(0, 0, -1);
+        }
+        if (other.gameObject.CompareTag("JudgeBack"))
+        {
+            nomal = new Vector3(0, -1, 0);
+        }
+    }
+
 }

@@ -6,9 +6,12 @@ TagManager:
   tags:
   - Cube1
   - Cube2
-  - RightGateSwich
-  - LeftGateSwich
   - Stage1Goal
+  - JudgeRight
+  - JudgeLeft
+  - JudgeDown
+  - JudgeForward
+  - JudgeBack
   layers:
   - Default
   - TransparentFX

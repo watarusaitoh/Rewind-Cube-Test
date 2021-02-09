@@ -71,7 +71,6 @@ public class StageController : MonoBehaviour
         if (RotateEndCube1||RotateEndCube2)
         {
             //RaycastがColliderを検知する
-           
             distance_right = this.RS_R.transform.position.z - this.RE_R.transform.position.z;
             RaycastHit hit;
             Physics.Raycast(this.RS_R.transform.position, new Vector3(0f, 0f, -distance_right), out hit, distance_right,layermask);
@@ -102,26 +101,27 @@ public class StageController : MonoBehaviour
                 CubeOnOff();
                 rotateAxis = new Vector3(1f, 0f, 0f);
             }
-            //CubeをチェンジしたときにStageを回転させる
-            if (Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.x <= this.Cube1.transform.position.x + 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.x <= this.Cube2.transform.position.x + 1f)
+            //Cubeが側面に位置し且つチェンジしたときにStageを回転させる
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                CubeOnOff();
-                rotateAxis = new Vector3(0f, 0f, 1f);
-            }
-            else if (Input.GetKeyDown(KeyCode.Space) && this.RS_L.transform.position.x >= this.Cube1.transform.position.x - 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_L.transform.position.x >= this.Cube2.transform.position.x - 1f)
-            {
-                CubeOnOff();
-                rotateAxis = new Vector3(0f, 0f, -1f);
-            }
-            else if (Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.z <= this.Cube1.transform.position.z + 1f || Input.GetKeyDown(KeyCode.Space) && this.RS_R.transform.position.z <= this.Cube2.transform.position.z + 1f)
-            {
-                CubeOnOff();
-                rotateAxis = new Vector3(1f, 0f, 0f);
-            }
-            else if (Input.GetKeyDown(KeyCode.Space) && this.RE_R.transform.position.z >= this.Cube1.transform.position.z - 1f || Input.GetKeyDown(KeyCode.Space) && this.RE_R.transform.position.z <= this.Cube2.transform.position.z + 1f)
-            {
-                CubeOnOff();
-                rotateAxis = new Vector3(-1f, 0f, 1f);
+                //Cube1とCube2の間の角度を取得する
+                float angle = Vector3.Angle(scriptCube1.nomal, scriptCube2.nomal); 
+                if (angle ==90f)
+                {
+                    CubeOnOff();
+                    rotateAxis = new Vector3(0f, 0f, 1f);
+                }
+                else if(angle == -90)
+                {
+                    CubeOnOff();
+                    rotateAxis = new Vector3(0f, 0f, -1f);
+                }
+                else if (angle ==180)
+                {
+                    CubeOnOff();
+                    rotateAxis = new Vector3(0f, 0f, 1f);
+                }
+               
             }
             if (rotateAxis == Vector3.zero)
                 return;
