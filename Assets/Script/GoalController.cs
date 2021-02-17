@@ -31,10 +31,8 @@ public class GoalController : MonoBehaviour
     {
         this.StageClearText.GetComponent<Text>().text = "GOOD";
         script.isFadeOut = true;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene(NextStageName);
-        
-        
     }
     
     private void OnTriggerEnter(Collider other)

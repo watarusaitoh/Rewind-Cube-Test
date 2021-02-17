@@ -101,30 +101,35 @@ public class StageController : MonoBehaviour
                 CubeOnOff();
                 rotateAxis = new Vector3(1f, 0f, 0f);
             }
-            //Cubeが側面に位置し且つチェンジしたときにStageを回転させる
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                //Cube1とCube2の間の角度を取得する
-                float angle = Vector3.Angle(scriptCube1.nomal, scriptCube2.nomal); 
-                if (angle ==90f)
-                {
-                    CubeOnOff();
-                    rotateAxis = new Vector3(0f, 0f, 1f);
-                }
-                else if(angle == -90)
-                {
-                    CubeOnOff();
-                    rotateAxis = new Vector3(0f, 0f, -1f);
-                }
-                else if (angle ==180)
-                {
-                    CubeOnOff();
-                    rotateAxis = new Vector3(0f, 0f, 1f);
-                }
-               
-            }
+           
             if (rotateAxis == Vector3.zero)
                 return;
+        }
+        //Cubeを交代したときにStageを回転させる
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //Cube1とCube2の間の角度を取得する
+            float angle = Vector3.Angle(scriptCube1.nomal, scriptCube2.nomal);
+            Vector3 cross;
+            if (this.Cube1.GetComponent<CubeController>().enabled == true)
+            {
+                cross = Vector3.Cross(scriptCube1.nomal, scriptCube2.nomal);
+            }
+            else
+            {
+                cross = Vector3.Cross(scriptCube2.nomal, scriptCube1.nomal);
+            }
+            if (angle == 90)
+            {
+                CubeOnOff();
+                rotateAxis = cross;
+            }
+            else if (angle == 180)
+            {
+                CubeOnOff();
+                rotateAxis = cross;
+            }
+
         }
         StartCoroutine(MoveStage());
        

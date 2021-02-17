@@ -15,6 +15,7 @@ public class BigStageCameraMove : MonoBehaviour
     private float Y_Speed;
     private GameObject MainCamera;
     private float CameraPositionRange = 80f;
+    private GameObject CameraRange;
 
 
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class BigStageCameraMove : MonoBehaviour
     {
         Button = GameObject.Find("Button");
         MainCamera = GameObject.Find("Main Camera");
+        CameraRange = GameObject.Find("CameraRange");
     }
 
     // Update is called once per frame
@@ -53,11 +55,11 @@ public class BigStageCameraMove : MonoBehaviour
             RotateSpeed_X = 0f;
         }
         //Wが押されたとき上回転Sが押されたとき下回転
-        if (Input.GetKey(KeyCode.W) && this.MainCamera.transform.position.y < CameraPositionRange)
+        if (Input.GetKey(KeyCode.W) && this.CameraRange.transform.position.y < CameraPositionRange)
         {
             RotateSpeed_Y += 1f;
         }
-        if (Input.GetKey(KeyCode.S) && this.MainCamera.transform.position.y > -CameraPositionRange)
+        if (Input.GetKey(KeyCode.S) && this.CameraRange.transform.position.y > -CameraPositionRange)
         {
             RotateSpeed_Y -= 1f;
         }

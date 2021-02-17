@@ -949,6 +949,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 495384538274429688, guid: 406a2fc5a6ac04545ad3392954c528dd,
+        type: 3}
+      propertyPath: Stagename
+      value: HowToPlay3 Bridge
+      objectReference: {fileID: 0}
     - target: {fileID: 495384538274429689, guid: 406a2fc5a6ac04545ad3392954c528dd,
         type: 3}
       propertyPath: m_Name
@@ -1249,7 +1254,7 @@ PrefabInstance:
     - target: {fileID: 8530320328063609350, guid: 20969ee627ce6dd439cc760d9fb20c29,
         type: 3}
       propertyPath: m_Name
-      value: GoalPoint (Red)
+      value: GoalPoint
       objectReference: {fileID: 0}
     - target: {fileID: 8530320328063609351, guid: 20969ee627ce6dd439cc760d9fb20c29,
         type: 3}
@@ -1259,7 +1264,7 @@ PrefabInstance:
     - target: {fileID: 8530320328063609351, guid: 20969ee627ce6dd439cc760d9fb20c29,
         type: 3}
       propertyPath: NextStageName
-      value: Stage4 Rotate
+      value: HowToPlay4 Rotate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20969ee627ce6dd439cc760d9fb20c29, type: 3}

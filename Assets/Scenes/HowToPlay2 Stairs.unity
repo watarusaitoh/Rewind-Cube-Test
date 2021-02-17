@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: d9dca9ae1786c394f9e79c637aa9a7bf, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: efd1c33efd2d58340b88804268e6833f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -352,6 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c17078ee286c6f4aa045bc843b86aec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Stagename: HowToPlay2 Stairs
 --- !u!1001 &136478150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1019,15 +1020,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 544903136}
     m_Modifications:
-    - target: {fileID: 8530320328063609344, guid: 20969ee627ce6dd439cc760d9fb20c29,
-        type: 3}
-      propertyPath: m_Center.y
-      value: -0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8530320328063609347, guid: 20969ee627ce6dd439cc760d9fb20c29,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8530320328063609347, guid: 20969ee627ce6dd439cc760d9fb20c29,
         type: 3}
@@ -1037,7 +1033,7 @@ PrefabInstance:
     - target: {fileID: 8530320328063609347, guid: 20969ee627ce6dd439cc760d9fb20c29,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8530320328063609347, guid: 20969ee627ce6dd439cc760d9fb20c29,
         type: 3}
@@ -1087,7 +1083,7 @@ PrefabInstance:
     - target: {fileID: 8530320328063609351, guid: 20969ee627ce6dd439cc760d9fb20c29,
         type: 3}
       propertyPath: NextStageName
-      value: Stage3 Bridge
+      value: HowToPlay3 Bridge
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20969ee627ce6dd439cc760d9fb20c29, type: 3}

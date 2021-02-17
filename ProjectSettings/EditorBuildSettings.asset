@@ -6,15 +6,36 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Stage2 Stairs.unity
+    path: Assets/Scenes/HowToPlay2 Stairs.unity
     guid: 62aad0607ccfa1c48be57166ad856389
   - enabled: 1
-    path: Assets/Scenes/Stage3 Bridge.unity
+    path: Assets/Scenes/HowToPlay3 Bridge.unity
     guid: 856e1ad2a3b73704e9ec8d05aba1e759
   - enabled: 1
-    path: Assets/Scenes/Stage4 Rotate.unity
+    path: Assets/Scenes/HowToPlay4 Rotate.unity
     guid: a0df80177dc0f994f83697791d116e87
   - enabled: 1
-    path: Assets/Scenes/Stage5 Swich.unity
+    path: Assets/Scenes/HowToPlay5 Swich.unity
     guid: 8487ec0945ad0d84fa386150e6f01707
+  - enabled: 1
+    path: Assets/Scenes/Stage1.unity
+    guid: e8117e9aba9376a459bd2e0b33878468
+  - enabled: 1
+    path: Assets/Scenes/Stage2.unity
+    guid: 834749141df472942861f161e2a4a9ae
+  - enabled: 1
+    path: Assets/Scenes/Stage3.unity
+    guid: 813083c1bdca13d43a8f31683d31a805
+  - enabled: 1
+    path: Assets/Scenes/Stage4.unity
+    guid: 78755b3594d05d24fa54caec216865f3
+  - enabled: 1
+    path: Assets/Scenes/Stage5.unity
+    guid: 59a3c4ee5f63238468d9ee64eeac6efa
+  - enabled: 1
+    path: Assets/Scenes/Stage6.unity
+    guid: f536d860ec98c1841b8f94f1301178b4
+  - enabled: 1
+    path: Assets/Scenes/Stage7.unity
+    guid: ee88b17c9931361468a03b8db686b56f
   m_configObjects: {}

@@ -29,9 +29,14 @@ public class CubeController : MonoBehaviour
     {
         if (isRotate)
             return;
-        //上面にある場合のCubeの法線
-        nomal = new Vector3(0, 1, 0);
         RaycastHit Result;
+        //上にオブジェクトがあった場合
+        Physics.Raycast(this.transform.position, Vector3.up, out Result, this.cubeSizeHalf * 2f);
+        if(Result.collider != null)
+        {
+            //動けない
+            return;
+        }
         //右矢印またはRButtonを押した時
         if (Input.GetKeyDown(KeyCode.RightArrow)||this.RButton)
         {
@@ -350,10 +355,14 @@ public class CubeController : MonoBehaviour
         {
             nomal = new Vector3(0, 0, -1);
         }
-        if (other.gameObject.CompareTag("JudgeBack"))
+        if (other.gameObject.CompareTag("JudgeDown"))
         {
             nomal = new Vector3(0, -1, 0);
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        nomal = new Vector3(0, 1, 0);
     }
 
 }
