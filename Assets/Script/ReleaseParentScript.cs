@@ -27,10 +27,13 @@ public class ReleaseParentScript : MonoBehaviour
         if (other.gameObject.CompareTag("Cube1"))
         {
             this.Cube1.transform.parent = null;
+            //接触している間はistriggerのチェックがつく
+            this.GetComponent<BoxCollider>().isTrigger = true;
         }
         if (other.gameObject.CompareTag("Cube2"))
         {
             this.Cube2.transform.parent = null;
+            this.GetComponent<BoxCollider>().isTrigger = true;
         }
         if(SceneManager.GetActiveScene().name == "Stage5"|| SceneManager.GetActiveScene().name == "Stage6")
         {
@@ -49,10 +52,13 @@ public class ReleaseParentScript : MonoBehaviour
         if (other.gameObject.CompareTag("Cube1"))
         {
             this.Cube1.transform.parent = StageCore.gameObject.transform;
+            //離れたときistriggerのチェックが外れる
+            this.GetComponent<BoxCollider>().isTrigger = false;
         }
         if (other.gameObject.CompareTag("Cube2"))
         {
             this.Cube2.transform.parent = StageCore.gameObject.transform;
+            this.GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 }

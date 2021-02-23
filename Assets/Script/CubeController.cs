@@ -16,11 +16,11 @@ public class CubeController : MonoBehaviour
     private bool BButton;          //BuckButtonを入れる
     private bool StepUpDownMove;  //一段上がるか下がるかの判断をする変数
     private float sumRotate;　　　//転がる角度の合計
-    public bool RotateEnd;        //Cubeの回転終わりを判断する。　StageControllerに渡す変数
-    public Vector3 nomal ;　　　　//法線を代入する変数
+    public Vector3 nomal;　　　　//法線を代入する変数
 
     void Start()
     {
+        nomal = new Vector3(0, 1, 0);
         cubeSizeHalf = transform.localScale.x / 2f;
     }
 
@@ -204,7 +204,6 @@ public class CubeController : MonoBehaviour
     }
     IEnumerator MoveCube()
     {
-        RotateEnd = false;
         //回転中のフラグを立てる
         isRotate = true;
         if (StepUpDownMove == true)
@@ -239,7 +238,6 @@ public class CubeController : MonoBehaviour
         rotateAxis = Vector3.zero;
         this.transform.position = m_targetPosition;
         this.StepUpDownMove = false;
-        RotateEnd = true;
         yield break;
     }
     //90度回転する場合の処理
