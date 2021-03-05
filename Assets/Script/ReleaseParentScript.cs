@@ -9,12 +9,14 @@ public class ReleaseParentScript : MonoBehaviour
     GameObject Cube2;
     GameObject StageCore;
     public GameObject GimmickGroup;
+    StageController stagecontroller;
     // Start is called before the first frame update
     void Start()
     {
         Cube1 = GameObject.Find("Cube1");
         Cube2 = GameObject.Find("Cube2");
         StageCore = GameObject.Find("StageCore");
+        stagecontroller = StageCore.GetComponent<StageController>();
     }
 
     // Update is called once per frame
@@ -24,6 +26,9 @@ public class ReleaseParentScript : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        bool isRotate = stagecontroller.isRotate;
+        if (isRotate)
+            return;
         if (other.gameObject.CompareTag("Cube1"))
         {
             this.Cube1.transform.parent = null;
@@ -32,7 +37,7 @@ public class ReleaseParentScript : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Cube2"))
         {
-            this.Cube2.transform.parent = null;
+            this.Cube2.transform.parent = null;//回転している間だけは外れなければいい
             this.GetComponent<BoxCollider>().isTrigger = true;
         }
         if(SceneManager.GetActiveScene().name == "Stage5"|| SceneManager.GetActiveScene().name == "Stage6")
@@ -49,6 +54,9 @@ public class ReleaseParentScript : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
+        bool isRotate = stagecontroller.isRotate;
+        if (isRotate)
+            return;
         if (other.gameObject.CompareTag("Cube1"))
         {
             this.Cube1.transform.parent = StageCore.gameObject.transform;

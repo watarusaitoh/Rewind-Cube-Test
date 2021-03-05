@@ -8,9 +8,10 @@ public class StageController : MonoBehaviour
     Vector3 rotatePoint = Vector3.zero;  //回転の中心
     Vector3 rotateAxis = Vector3.zero;   //回転軸
     float cubeAngle = 0f;                //回転角度
-    bool isRotate = false;               //回転中に立つフラグ、回転中は入力を受け付けない
+    public bool isRotate = false;        //回転中に立つフラグ、回転中は入力を受け付けない
     private float sumRotate;             //回転する合計
     private bool StraightDown;           //真下にCubeがいるときにtrueになる変数
+    private bool ChangeButton;           //
     GameObject RS_R;                     //右奥のオブジェクト
     GameObject RE_R;                     //右手前のオブジェクト
     GameObject RS_L;                     //左奥のオブジェクト
@@ -27,7 +28,10 @@ public class StageController : MonoBehaviour
     CubeController scriptCube2;          //CubeControllerから変数をもらう
     private int layermask;               //Raycastの検知を指定する変数
     private BoxCollider cllider1;  //Cube1のBoxclliderを入れる
-    private BoxCollider cllider2;　//Cube2のBoxclliderを入れる
+    private BoxCollider cllider2; //Cube2のBoxclliderを入れる
+    Vector3 cross;                       //Cube1とCube2の法線を取得する変数
+    GameObject PlayerChangeManager;
+    CubeChanger cubechanger_Script;
 
     // Start is called before the first frame update
     void Start()
@@ -47,12 +51,14 @@ public class StageController : MonoBehaviour
         //ステージの回転の時にistriggerをfalseにする
         cllider1 = Cube1.GetComponent<BoxCollider>();
         cllider2 = Cube2.GetComponent<BoxCollider>();
+
+        PlayerChangeManager = GameObject.Find("PlayerChangeManager");
+        cubechanger_Script = PlayerChangeManager.GetComponent<CubeChanger>();
+
     }
-   
     // Update is called once per frame
     void Update()
     {
-       
         if (isRotate)
             return;
         //回転中はCubeControllerスクリプトを無効にする
@@ -100,18 +106,21 @@ public class StageController : MonoBehaviour
                 rotateAxis = new Vector3(1f, 0f, 0f);
             }
         //Cubeを交代したときにStageを回転させる
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+        //交代したときに変化する変数を取得
+        bool change1 = cubechanger_Script.change1;
+        bool change2 = cubechanger_Script.change2;
+        if (Input.GetKeyDown(KeyCode.Space)||this.ChangeButton)
+        {        
+
             //Cube1とCube2の間の角度を取得する
             float angle = Vector3.Angle(scriptCube1.nomal, scriptCube2.nomal);
-            Vector3 cross;
-            if (this.Cube1.GetComponent<CubeController>().enabled == true)
-            {
-                cross = Vector3.Cross(scriptCube1.nomal, scriptCube2.nomal);
-            }
-            else
+            if (change1)
             {
                 cross = Vector3.Cross(scriptCube2.nomal, scriptCube1.nomal);
+            }
+            else if(change2)
+            {
+                cross = Vector3.Cross(scriptCube1.nomal, scriptCube2.nomal);
             }
             if (angle == 90)
             {
@@ -124,6 +133,7 @@ public class StageController : MonoBehaviour
                 rotateAxis = new Vector3(1, 0, 0);
                 StraightDown = true;
             }
+            ChangeButton = false;
 
         }
         if (rotateAxis == Vector3.zero)
@@ -146,7 +156,7 @@ public class StageController : MonoBehaviour
         {
             sumRotate = 90f;
         }
-            //回転処理中はCube1,Cube2のIs Triggerをfalseにする
+        //回転処理中はCube1,Cube2のIs Triggerをfalseにする
         this.cllider1.isTrigger = false;
         this.cllider2.isTrigger = false;
         //回転処理
@@ -203,4 +213,9 @@ public class StageController : MonoBehaviour
             Cube2True = true;
         }
     }
+    public void GetMyChangeButtonDown()
+    {
+        this.ChangeButton = true;
+    }
 }
+
