@@ -8,7 +8,7 @@ public class CubeController : MonoBehaviour
     Vector3 rotateAxis = Vector3.zero;   //回転軸
     float cubeAngle = 0f;                //回転角度
     float cubeSizeHalf;                  //キューブの大きさの半分
-    bool isRotate = false;               //回転中に立つフラグ、回転中は入力を受け付けない
+    public bool isRotate = false;               //回転中に立つフラグ、回転中は入力を受け付けない
     Vector3 m_targetPosition = Vector3.zero;//キューブの微量な誤差を修正するための変数
     private bool RButton;          //RightButtonを入れる
     private bool LButton;          //LeftButtonを入れる

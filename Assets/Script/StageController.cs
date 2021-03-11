@@ -78,7 +78,7 @@ public class StageController : MonoBehaviour
             distance_right = this.RS_R.transform.position.z - this.RE_R.transform.position.z;
             RaycastHit hit;
             Physics.Raycast(this.RS_R.transform.position, new Vector3(0f, 0f, -distance_right), out hit, distance_right,layermask);
-            if (hit.collider != null||hit.collider != null)
+            if (hit.collider != null)
             {
                 //CubeControllerを無効にするにする
                 CubeOnOff();
@@ -86,21 +86,21 @@ public class StageController : MonoBehaviour
             }
             distance_Left = this.RS_L.transform.position.z - this.RE_L.transform.position.z;
             Physics.Raycast(this.RS_L.transform.position, new Vector3(0f, 0f, -distance_Left), out hit, distance_Left,layermask);
-            if (hit.collider != null|| hit.collider != null)
+            if (hit.collider != null)
             {
                 CubeOnOff();
                 rotateAxis = new Vector3(0f, 0f, -1f);
             }
             distance_forward = this.RS_R.transform.position.x - this.RS_L.transform.position.x;
             Physics.Raycast(this.RS_R.transform.position, new Vector3(-distance_forward, 0f, 0f), out hit, distance_forward,layermask);
-            if (hit.collider != null|| hit.collider != null )
+            if (hit.collider != null )
             {
                 CubeOnOff();
                 rotateAxis = new Vector3(-1f, 0f, 0f);
             }
             distance_back = this.RE_R.transform.position.x - this.RE_L.transform.position.x;
             Physics.Raycast(this.RE_R.transform.position, new Vector3(-distance_back, 0f, 0f), out hit, distance_back,layermask);
-            if (hit.collider != null|| hit.collider != null )
+            if (hit.collider != null)
             {
                 CubeOnOff();
                 rotateAxis = new Vector3(1f, 0f, 0f);

@@ -45,6 +45,10 @@ public class ZoomMove : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     isDoubleTapMove = true;
+                    //Smartphonezoomで使用する変数
+                    this.StartPos = Input.mousePosition;
+                    isDoubleTapStart = false;
+                    doubleTapTime = 0.0f;
                 }
             }
             //シングルタップの処理
@@ -66,16 +70,11 @@ public class ZoomMove : MonoBehaviour
     {
         if (isDoubleTapMove)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                this.StartPos = Input.mousePosition;
-                isDoubleTapStart = false;
-                doubleTapTime = 0.0f;
-            }
-            else if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0))
             {
                 this.EndPos = Input.mousePosition;
                 this.SwipeLenth_Y = this.EndPos.y - this.StartPos.y;
+
                 this.Y_Speed = SwipeLenth_Y / 250.0f;
                 cam.fieldOfView -= Y_Speed;
                 beforeZoom = cam.fieldOfView;
@@ -110,7 +109,7 @@ public class ZoomMove : MonoBehaviour
             cam.fieldOfView += 0.3f;
             beforeZoom = cam.fieldOfView;
         }
-        //
+        //ステージの回転時ステージ中心になる
         if(Cube1.GetComponent<CubeController>().enabled ==false&&Cube2.GetComponent<CubeController>().enabled ==false)
         {
             cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60f, 0.05f);
