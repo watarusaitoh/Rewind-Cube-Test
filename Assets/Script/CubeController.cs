@@ -41,11 +41,11 @@ public class CubeController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow)||this.RButton)
         {
             //一段上る場合
-            Physics.Raycast(this.transform.position, Vector3.right, out Result, this.cubeSizeHalf*2f);
+            Physics.BoxCast(this.transform.position,Vector3.one*this.cubeSizeHalf/2, Vector3.right, out Result, Quaternion.identity, this.cubeSizeHalf*2f);
             if (Result.collider != null)
             {
                 //2段以上ある場合
-                if (Physics.Raycast(this.transform.position + new Vector3(2f, 0f, 0f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
+                if (Physics.Raycast(this.transform.position + new Vector3(this.cubeSizeHalf+1, 0f, 0f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
                 {
                     //登れない
                     return;
@@ -60,10 +60,10 @@ public class CubeController : MonoBehaviour
                 return;
             }
             //一段降りる場合
-            Physics.Raycast(this.transform.position + new Vector3(2f, 0f, 0f), new Vector3(0f, -2f, 0f), out Result, this.cubeSizeHalf * 2f);
+            Physics.Raycast(this.transform.position + new Vector3(this.cubeSizeHalf*2, 0f, 0f), new Vector3(0f, -2f, 0f), out Result, this.cubeSizeHalf * 2f);
             if (Result.collider == null)
             {
-                if (Physics.Raycast(this.transform.position + new Vector3(2f, -2f, 0f), new Vector3(-2f, 0f, 0f), out Result, this.cubeSizeHalf * 2f))
+                if (Physics.Raycast(this.transform.position + new Vector3(this.cubeSizeHalf*2, -this.cubeSizeHalf*2, 0f), new Vector3(-2f, 0f, 0f), out Result, this.cubeSizeHalf * 2f))
                 {
                     //下を基準にし180度回転する
                     Rotate180(cubeSizeHalf, -cubeSizeHalf, cubeSizeHalf);
@@ -84,7 +84,7 @@ public class CubeController : MonoBehaviour
             if (Result.collider != null)
             {
                 //2段以上ある場合
-                if (Physics.Raycast(this.transform.position + new Vector3(-2f, 0f, 0f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
+                if (Physics.Raycast(this.transform.position + new Vector3(-this.cubeSizeHalf-1, 0f, 0f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
                 {
                     //登れない
                     return;
@@ -99,10 +99,10 @@ public class CubeController : MonoBehaviour
                 return;
             }
             //一段降りる場合
-            Physics.Raycast(this.transform.position + new Vector3(-2f, 0f, 0f), new Vector3(0f, -2f,0f), out Result, this.cubeSizeHalf * 2f);
+            Physics.Raycast(this.transform.position + new Vector3(-this.cubeSizeHalf*2, 0f, 0f), new Vector3(0f, -2f,0f), out Result, this.cubeSizeHalf * 2f);
             if (Result.collider == null)
             {
-                if (Physics.Raycast(this.transform.position + new Vector3(-2f, -2f, 0f), new Vector3(2f, 0f, 0f), out Result, this.cubeSizeHalf * 2f))
+                if (Physics.Raycast(this.transform.position + new Vector3(-this.cubeSizeHalf*2, -this.cubeSizeHalf*2, 0f), new Vector3(2f, 0f, 0f), out Result, this.cubeSizeHalf * 2f))
                 {
                     //下を基準にし180度回転する
                     Rotate180(-cubeSizeHalf, -cubeSizeHalf, cubeSizeHalf);
@@ -124,7 +124,7 @@ public class CubeController : MonoBehaviour
             if(Result.collider != null)
             {
                 //2段以上ある場合
-                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, 2f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, this.cubeSizeHalf+1), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
                 {
                     //登れない
                     return;
@@ -139,10 +139,10 @@ public class CubeController : MonoBehaviour
                 return;
             }
             //一段降りる場合
-            Physics.Raycast(this.transform.position+new Vector3(0f,0f,2f), new Vector3(0f,-2f,0f),out Result, this.cubeSizeHalf*2f);
+            Physics.Raycast(this.transform.position+new Vector3(0f,0f,this.cubeSizeHalf*2), new Vector3(0f,-2f,0f),out Result, this.cubeSizeHalf*2f);
             if(Result.collider == null)
             {
-                if (Physics.Raycast(this.transform.position + new Vector3(0f, -2f, 2f), new Vector3(0f, 0f, -2f), out Result, this.cubeSizeHalf * 2f))
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, -this.cubeSizeHalf*2, this.cubeSizeHalf*2), new Vector3(0f, 0f, -2f), out Result, this.cubeSizeHalf * 2f))
                 {
                     //下を基準にし180度回転する
                     Rotate180(cubeSizeHalf, -cubeSizeHalf, cubeSizeHalf);
@@ -164,7 +164,7 @@ public class CubeController : MonoBehaviour
             if (Result.collider != null)
             {
                 //2段以上ある場合
-                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, -2f), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, 0f, -this.cubeSizeHalf-1), new Vector3(0f, 2f, 0f), out Result, this.cubeSizeHalf * 2f))
                 {
                     //登れない
                     return;
@@ -179,10 +179,10 @@ public class CubeController : MonoBehaviour
                 return;
             }
             //一段降りる場合
-            Physics.Raycast(this.transform.position + new Vector3(0f, 0f, -2f), new Vector3(0f, -2f, 0f), out Result, this.cubeSizeHalf * 2f);
+            Physics.Raycast(this.transform.position + new Vector3(0f, 0f, -this.cubeSizeHalf*2), new Vector3(0f, -2f, 0f), out Result, this.cubeSizeHalf * 2f);
             if (Result.collider == null)
             {
-                if (Physics.Raycast(this.transform.position + new Vector3(0f, -2f, -2f), new Vector3(0f, 0f, 2f), out Result, this.cubeSizeHalf * 2f))
+                if (Physics.Raycast(this.transform.position + new Vector3(0f, -this.cubeSizeHalf*2, -this.cubeSizeHalf*2), new Vector3(0f, 0f, 2f), out Result, this.cubeSizeHalf * 2f))
                 {
                     //下を基準にし180度回転する
                     Rotate180(cubeSizeHalf, -cubeSizeHalf, -cubeSizeHalf);
@@ -238,6 +238,8 @@ public class CubeController : MonoBehaviour
         rotateAxis = Vector3.zero;
         this.transform.position = m_targetPosition;
         this.StepUpDownMove = false;
+        //回転したときにAudioが再生される
+        SetSoundEffect();
         yield break;
     }
     //90度回転する場合の処理
@@ -363,4 +365,9 @@ public class CubeController : MonoBehaviour
         nomal = new Vector3(0, 1, 0);
     }
 
+    private void SetSoundEffect()
+    {
+        GetComponent<AudioSource>().pitch = 1-0.1f*this.cubeSizeHalf;
+        GetComponent<AudioSource>().Play();
+    }
 }

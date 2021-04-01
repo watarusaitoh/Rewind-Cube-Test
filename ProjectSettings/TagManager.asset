@@ -12,6 +12,9 @@ TagManager:
   - JudgeDown
   - JudgeForward
   - JudgeBack
+  - Swich1
+  - Swich2
+  - Swich3
   layers:
   - Default
   - TransparentFX

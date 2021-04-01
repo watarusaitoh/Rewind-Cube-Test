@@ -40,7 +40,7 @@ public class ReleaseParentScript : MonoBehaviour
             this.Cube2.transform.parent = null;//回転している間だけは外れなければいい
             this.GetComponent<BoxCollider>().isTrigger = true;
         }
-        if(SceneManager.GetActiveScene().name == "Stage5"|| SceneManager.GetActiveScene().name == "Stage6")
+        if(SceneManager.GetActiveScene().name == "Stage5"|| SceneManager.GetActiveScene().name == "Stage6"||SceneManager.GetActiveScene().name == "Stage8")
         {
             if (other.gameObject.CompareTag("Cube1"))
             {

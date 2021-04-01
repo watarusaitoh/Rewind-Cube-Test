@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;  //シーンを切り替えるために追加
-
+using UnityEngine.Events;
 public class SwichController : MonoBehaviour
 {
     public GameObject Gimmick;
@@ -44,6 +44,27 @@ public class SwichController : MonoBehaviour
             {
                 Gimmick.transform.Translate(0, 0, Digree, Space.Self);
             }
+        } 
+        if (SceneManager.GetActiveScene().name == "Stage8"&&gameObject.CompareTag("Swich1"))
+        {
+            if (other.gameObject.CompareTag("Cube1") || other.gameObject.CompareTag("Cube2"))
+            {
+                Gimmick.transform.Translate(0, 0, -Digree*2, Space.Self);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "Stage8"&&gameObject.CompareTag("Swich2"))
+        {
+            if (other.gameObject.CompareTag("Cube1") || other.gameObject.CompareTag("Cube2"))
+            {
+                Gimmick.transform.Translate(0, Digree*2, 0, Space.Self);
+            }
+        } 
+        if (SceneManager.GetActiveScene().name == "Stage8"&&gameObject.CompareTag("Swich3"))
+        {
+            if (other.gameObject.CompareTag("Cube1") || other.gameObject.CompareTag("Cube2"))
+            {
+                Gimmick.transform.Translate(0, Digree, 0, Space.Self);
+            }
         }
     }
     //スイッチから離れたときゲートが下がる。
@@ -68,6 +89,20 @@ public class SwichController : MonoBehaviour
             if (other.gameObject.CompareTag("Cube1") || other.gameObject.CompareTag("Cube2"))
             {
                 Gimmick.transform.Translate(0, 0, -Digree, Space.Self);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "Stage8"&&gameObject.CompareTag("Swich1"))
+        {
+            if (other.gameObject.CompareTag("Cube1") || other.gameObject.CompareTag("Cube2"))
+            {
+                Gimmick.transform.Translate(0, 0, Digree*2, Space.Self);
+            }
+        } 
+        if (SceneManager.GetActiveScene().name == "Stage8"&&gameObject.CompareTag("Swich3"))
+        {
+            if (other.gameObject.CompareTag("Cube1") || other.gameObject.CompareTag("Cube2"))
+            {
+                Gimmick.transform.Translate(0, -Digree, 0, Space.Self);
             }
         }
     }

@@ -11,7 +11,7 @@ public class StageController : MonoBehaviour
     public bool isRotate = false;        //回転中に立つフラグ、回転中は入力を受け付けない
     private float sumRotate;             //回転する合計
     private bool StraightDown;           //真下にCubeがいるときにtrueになる変数
-    private bool ChangeButton;           //
+    private bool ChangeButton;
     GameObject RS_R;                     //右奥のオブジェクト
     GameObject RE_R;                     //右手前のオブジェクト
     GameObject RS_L;                     //左奥のオブジェクト
@@ -110,8 +110,7 @@ public class StageController : MonoBehaviour
         bool change1 = cubechanger_Script.change1;
         bool change2 = cubechanger_Script.change2;
         if (Input.GetKeyDown(KeyCode.Space)||this.ChangeButton)
-        {        
-
+        {
             //Cube1とCube2の間の角度を取得する
             float angle = Vector3.Angle(scriptCube1.nomal, scriptCube2.nomal);
             if (change1)
@@ -195,6 +194,10 @@ public class StageController : MonoBehaviour
         {
             Cube2.GetComponent<CubeController>().enabled = true;
         }
+        //FallControllerを有効にする
+        Cube1.GetComponent<FallController>().enabled = true;
+        Cube2.GetComponent<FallController>().enabled = true;
+
         yield break;
     }
    
@@ -208,10 +211,11 @@ public class StageController : MonoBehaviour
         }
         else if (Cube2.GetComponent<CubeController>().enabled == true)
         {
-            
             Cube2.GetComponent<CubeController>().enabled = false;
             Cube2True = true;
         }
+        Cube1.GetComponent<FallController>().enabled = false;
+        Cube2.GetComponent<FallController>().enabled = false;
     }
     public void GetMyChangeButtonDown()
     {

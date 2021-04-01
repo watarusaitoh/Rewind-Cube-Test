@@ -9,7 +9,7 @@ public class GoalController : MonoBehaviour
     private GameObject StageClearText;//StageClearテキストを入れる
     GameObject FadeInFadeOut;         //FadeInFadeOutのオブジェクトを入れる
     FadeScript script;　　　　　　　　//FadeScriptを入れる
-    public bool isGoal;   //ゴールのSetactiveを判断する変数
+    public bool isGoal;               //ゴールのSetactiveを判断する変数
     public string NextStageName;
 
     // Start is called before the first frame update

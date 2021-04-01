@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Title.unity
+    guid: 3717c462d2d38f04d932335cb87dd161
+  - enabled: 1
+    path: Assets/Scenes/HowToPlay1 Goal.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
     path: Assets/Scenes/HowToPlay2 Stairs.unity
     guid: 62aad0607ccfa1c48be57166ad856389
   - enabled: 1
@@ -41,4 +47,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage8.unity
     guid: b9dc7b4f125c95948b75038c7480c4d2
+  - enabled: 1
+    path: Assets/Scenes/Stage9.unity
+    guid: 2418d32c2b295d04fa95b7257fe8afd3
+  - enabled: 1
+    path: Assets/Scenes/Stage10.unity
+    guid: 6c98f2008cb8a2c4cb16516bc9d27a79
+  - enabled: 1
+    path: Assets/Scenes/StageSelect.unity
+    guid: 5d644476f493d744aba5d71a61a0528c
   m_configObjects: {}
